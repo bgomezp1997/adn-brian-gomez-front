@@ -8,9 +8,6 @@ import { ProductoModule } from '@producto/producto.module';
 import { CoreModule } from '@core/core.module';
 import { CookieService } from 'ngx-cookie-service';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
