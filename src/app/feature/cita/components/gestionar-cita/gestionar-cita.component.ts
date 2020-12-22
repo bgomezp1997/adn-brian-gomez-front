@@ -47,10 +47,10 @@ export class GestionarCitaComponent implements OnInit {
     this.construirFormularioProducto();
     this.medicoService.consultar().subscribe(medicos => this.medicos = medicos);
     this.pacienteService.consultar().subscribe(pacientes => this.pacientes = pacientes);
-    this.cargarCliente();
+    this.cargarCita();
   }
 
-  private cargarCliente(): void {
+  private cargarCita(): void {
     this.activateRoute.params.subscribe(params => {
       let id = params['id'];
       if (id) {

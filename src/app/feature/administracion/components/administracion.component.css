@@ -2,26 +2,13 @@
     color: #ffffff;
 }
 
-.justify-content-center {
-    display: flex !important;
-    justify-content: center !important;
-}
-
-.page-item {
-    display: none;
-}
-
-.page-item:nth-child(1) {
-    display: block;
-}
-
-.page-item:last-child {
-    display: block;
-}
-
 .card-img-top {
+    /*height: 11vw;*/
     object-fit: cover;
 }
+
+
+/* Small devices (landscape phones, 576px and up) */
 
 @media (min-width: 576px) {
     .card-img-top {
@@ -29,17 +16,26 @@
     }
 }
 
+
+/* Medium devices (tablets, 768px and up) */
+
 @media (min-width: 768px) {
     .card-img-top {
         height: 16vw;
     }
 }
 
+
+/* Large devices (desktops, 992px and up) */
+
 @media (min-width: 992px) {
     .card-img-top {
         height: 11vw;
     }
 }
+
+
+/* Extra large devices (large desktops, 1200px and up) */
 
 @media (min-width: 992px) {
     .card-img-top {

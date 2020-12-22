@@ -11,8 +11,13 @@ import Swal from 'sweetalert2';
 export class CitaComponent implements OnInit {
 
   public citas: Cita[];
+  public page: number;
+  public pageSize: number;
 
-  constructor(protected citaService: CitaService) {}
+  constructor(protected citaService: CitaService) {
+    this.page = 1;
+    this.pageSize = 5;
+  }
 
   ngOnInit(): void {
     this.citaService.consultar().subscribe(citas => this.citas = citas);
@@ -52,8 +57,9 @@ export class CitaComponent implements OnInit {
                 'success'
               );
             }
-          }
-        );
+          }, err => {
+            Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+          });
       }
     });
   }

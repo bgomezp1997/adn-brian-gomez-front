@@ -16,6 +16,7 @@ import { PacienteModule } from '@paciente/paciente.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdministracionModule } from '@administracion/administracion.module';
 
 registerLocaleData(localeEs, 'es');
 
@@ -35,6 +36,7 @@ registerLocaleData(localeEs, 'es');
     EpsModule,
     MedicoModule,
     PacienteModule,
+    AdministracionModule,
     CoreModule
   ],
   providers: [

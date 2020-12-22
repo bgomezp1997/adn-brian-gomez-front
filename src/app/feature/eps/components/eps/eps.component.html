@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row text-md-center">
+        <div class="col-12 mb-3">
+            <div class="my-3 row">
+                <div class="col-12 col-md-11 col-lg-11 text-center">
+                    <button type="button" name="crear" [routerLink]="['/eps/gestionar']" class="btn btn-primary btn-lg">Crear EPS</button>
+                </div>
+                <div class="col-12 col-md-1 col-lg-1 text-right">
+                    <button type="button" name="volver" [routerLink]="['/administracion']" class="btn btn-primary btn-lg">
+                        <img src="assets/img/back.png" width="30" height="30"> 
+                    </button>
+                </div>
+            </div>
+            <router-outlet></router-outlet>
+            <div class="card border-dark">
+                <img src="assets/img/administracion/eps.jpg" class="card-img-top">
+                <div class="card-body">
+                    <div *ngIf="eps?.length == 0" class="alert alert-info my-3">
+                        No hay registros en la base de datos
+                    </div>
+                    <table class="table table-bodered table-striped my-3" *ngIf="eps?.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Nit</th>
+                                <th>Teléfono</th>
+                                <th>Correo Electronico</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let eps of eps">
+                                <td>{{eps.nombre}}</td>
+                                <td>{{eps.nit}}</td>
+                                <td>{{eps.telefono}}</td>
+                                <td>{{eps.email}}</td>
+                                <td>
+                                    <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink]="['/eps/gestionar', eps.id]">Editar</button>
+                                </td>
+                                <td>
+                                    <button type="button" name="eliminar" (click)="delete(eps)" class="btn btn-danger btn-sm">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="justify-content-center">
+                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="eps?.length" [maxSize]="1" style="text-align: center;">
+                            <ng-template ngbPaginationPrevious>Siguiente</ng-template>
+                            <ng-template ngbPaginationNext>Atrás</ng-template>
+                        </ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

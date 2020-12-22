@@ -29,6 +29,9 @@
       "@paciente/*": [
         "src/app/feature/paciente/*"
       ],
+      "@administracion/*": [
+        "src/app/feature/administracion/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
       ]
