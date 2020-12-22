@@ -17,6 +17,18 @@
       "@producto/*": [
         "src/app/feature/producto/*"
       ],
+      "@cita/*": [
+        "src/app/feature/cita/*"
+      ],
+      "@eps/*": [
+        "src/app/feature/eps/*"
+      ],
+      "@medico/*": [
+        "src/app/feature/medico/*"
+      ],
+      "@paciente/*": [
+        "src/app/feature/paciente/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
       ]

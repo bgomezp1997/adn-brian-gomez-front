@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { GestionarCitaComponent } from './gestionar-cita.component';
 
-import { FooterComponent } from './footer.component';
-
-describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('GestionarCitaComponent', () => {
+  let component: GestionarCitaComponent;
+  let fixture: ComponentFixture<GestionarCitaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
+      declarations: [ GestionarCitaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(GestionarCitaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

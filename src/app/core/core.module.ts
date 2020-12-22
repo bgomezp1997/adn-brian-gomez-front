@@ -8,15 +8,14 @@ import { HttpService } from './services/http.service';
 import { ManejadorError } from './interceptor/manejador-error';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     RouterModule
   ],
-  exports: [HeaderComponent, FooterComponent],
+  exports: [HeaderComponent],
   providers: [
     HttpService,
     SecurityGuard,

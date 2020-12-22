@@ -19,7 +19,7 @@ export class ProductoService {
   }
 
   public eliminar(producto: Producto) {
-    return this.http.doDelete<boolean>(`${environment.endpoint}/productos/${producto.id}`,
+    return this.http.doDelete(`${environment.endpoint}/productos/${producto.id}`,
                                                  this.http.optsName('eliminar productos'));
   }
 }

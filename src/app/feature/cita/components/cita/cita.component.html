@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row text-md-center">
+        <div class="col-12 mb-3">
+            <div class="my-3 text-center">
+                <button type="button" name="crear" [routerLink]="['/cita/gestionar']" class="btn btn-primary btn-lg">Crear cita</button>
+            </div>
+            <router-outlet></router-outlet>
+            <div *ngIf="citas?.length == 0" class="alert alert-info my-3">
+                No hay registros en la base de datos
+            </div>
+            <table class="table table-bodered table-striped my-3" *ngIf="citas?.length > 0">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Nombre Paciente</th>
+                        <th>Nombre Médico</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cita of citas">
+                        <td>{{cita.fechaCita | date:"MMM d, y h:mm:ss a"}}</td>
+                        <td>{{cita.paciente.nombres + " " + cita.paciente.apellidos}}</td>
+                        <td>{{cita.medico.nombres + " " + cita.medico.apellidos}}</td>
+                        <td>
+                            <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink]="['/cita/gestionar', cita.id]">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" name="eliminar" (click)="delete(cita)" class="btn btn-danger btn-sm">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
