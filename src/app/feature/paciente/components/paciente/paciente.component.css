@@ -1,0 +1,48 @@
+#font {
+    color: #ffffff;
+}
+
+.justify-content-center {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.page-item {
+    display: none;
+}
+
+.page-item:nth-child(1) {
+    display: block;
+}
+
+.page-item:last-child {
+    display: block;
+}
+
+.card-img-top {
+    object-fit: cover;
+}
+
+@media (min-width: 576px) {
+    .card-img-top {
+        height: 19vw;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-img-top {
+        height: 16vw;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-img-top {
+        height: 11vw;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-img-top {
+        height: 11vw;
+    }
+}

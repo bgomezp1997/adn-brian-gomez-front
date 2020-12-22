@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="card border-dark" style="margin-bottom: 2%; margin-top: 0.5%;">
+        <div class="card-header bg-dark text-white" style="text-align: center; font-weight: bold;">
+            {{titulo}}
+            <button class="btn btn-primary float-right" [routerLink]="['/paciente']">Cerrar</button>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="pacienteForm" (ngSubmit)="gestionar()">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="nombres" class="col-form-label col-sm-3">Nombres:</label>
+                        <input type="text" id="nombres" validar formControlName="nombres" name="nombres">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="apellidos" class="col-form-label col-sm-3">Apellidos:</label>
+                        <input type="text" id="apellidos" validar formControlName="apellidos" name="apellidos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="fechaCreacion" class="col-form-label col-sm-3">Fecha Creación:</label>
+                        <input type="text" id="fechaCreacion" validar formControlName="fechaCreacion" name="fechaCreacion">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="identificacion" class="col-form-label col-sm-3">Identificación:</label>
+                        <input type="text" id="identificacion" validar formControlName="identificacion" name="identificacion">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="email" class="col-form-label col-sm-3">Email:</label>
+                        <input type="text" id="email" validar formControlName="email" name="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="estrato" class="col-form-label col-sm-3">Estrato:</label>
+                        <input type="text" id="estrato" validar formControlName="estrato" name="estrato">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="eps" class="col-form-label col-sm-3">Eps:</label>
+                        <div class="ng-autocomplete width-autocomplete">
+                            <ng-autocomplete id="eps" name="eps" validar formControlName="eps" required [data]="eps" [searchKeyword]="atributoAutocomplete" (selected)='seleccionarEps($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"></ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.nombre + ' - ' + item.nit"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" (click)="onCrearClick()" *ngIf="!paciente.id else elseBlock" [disabled]="!pacienteForm.valid" role="button">Crear</button>
+                    <ng-template #elseBlock>
+                        <button type="submit" class="btn btn-primary" (click)="onEditarClick()" [disabled]="!pacienteForm.valid" role="button">Editar</button>
+                    </ng-template>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
