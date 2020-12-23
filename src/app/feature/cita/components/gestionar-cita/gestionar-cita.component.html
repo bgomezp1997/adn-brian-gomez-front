@@ -48,6 +48,10 @@
                     </div>
                 </div>
                 <hr/>
+                <div class="form-group">
+                    Precio de la cita: {{precio | currency: '$'}}
+                </div>
+                <hr/>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" (click)="onCrearClick()" *ngIf="!cita.id else elseBlock" [disabled]="!citaForm.valid" role="button">Crear</button>
                     <ng-template #elseBlock>

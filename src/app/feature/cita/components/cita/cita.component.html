@@ -24,6 +24,7 @@
                                 <th>Fecha</th>
                                 <th>Nombre Paciente</th>
                                 <th>Nombre Médico</th>
+                                <th>Precio</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -33,6 +34,7 @@
                                 <td>{{cita.fechaCita | date:"MMM d, y h:mm:ss a"}}</td>
                                 <td>{{cita.paciente.nombres + " " + cita.paciente.apellidos}}</td>
                                 <td>{{cita.medico.nombres + " " + cita.medico.apellidos}}</td>
+                                <td>{{cita.precio | currency:'$'}}</td>
                                 <td>
                                     <button type="button" name="editar" class="btn btn-primary btn-sm" [routerLink]="['/cita/gestionar', cita.id]">Editar</button>
                                 </td>

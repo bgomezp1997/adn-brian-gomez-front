@@ -7,6 +7,7 @@ import { GestionarMedicoComponent } from './components/gestionar-medico/gestiona
 import { MedicoRoutingModule } from './medico-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DatePipe } from '@angular/common';
   imports: [
     MedicoRoutingModule,
     SharedModule,
-    NgbModule
+    NgbModule,
+    AutocompleteLibModule
   ],
   providers: [
     MedicoService,

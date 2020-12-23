@@ -8,6 +8,7 @@ import { HttpService } from './services/http.service';
 import { ManejadorError } from './interceptor/manejador-error';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
+import { ParametroService } from './services/parametro.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -18,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
   exports: [HeaderComponent],
   providers: [
     HttpService,
+    ParametroService,
     SecurityGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

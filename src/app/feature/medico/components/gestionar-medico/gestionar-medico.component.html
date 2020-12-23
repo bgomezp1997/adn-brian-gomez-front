@@ -39,7 +39,15 @@
                 <div class="form-group">
                     <div class="input-group">
                         <label for="especialidad" class="col-form-label col-sm-3">Especialidad:</label>
-                        <input type="text" id="especialidad" validar formControlName="especialidad" name="especialidad">
+                        <div class="ng-autocomplete width-autocomplete">
+                            <ng-autocomplete id="especialidad" name="especialidad" validar formControlName="especialidad" required [data]="parametros" [searchKeyword]="atributoAutocomplete" (selected)='seleccionarParametro($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"></ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.nombre"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">

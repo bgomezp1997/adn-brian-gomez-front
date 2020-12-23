@@ -2,6 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Parametro } from '@core/model/parametro';
+import { ParametroService } from '@core/services/parametro.service';
 import { Medico } from '@medico/shared/model/medico';
 import { MedicoService } from '@medico/shared/service/medico.service';
 import Swal from 'sweetalert2';
@@ -23,12 +25,16 @@ export class GestionarMedicoComponent implements OnInit {
   private crearClicked: boolean;
   public fechaCreacionDate: Date;
 
-  constructor(protected medicoService: MedicoService, private activateRoute: ActivatedRoute, private router: Router, private datePipe: DatePipe) {
+  public parametros: Parametro[];
+  public atributoAutocomplete = 'nombre';
+
+  constructor(protected medicoService: MedicoService, protected parametroService: ParametroService,private activateRoute: ActivatedRoute, private router: Router, private datePipe: DatePipe) {
     this.crearClicked = false;
   }
 
   ngOnInit(): void {
     this.medico = new Medico();
+    this.parametroService.consultar(true, 'ESPECIALIDAD').subscribe(parametros => this.parametros = parametros);
     this.construirFormularioProducto();
     this.cargarMedico();
   }
@@ -115,10 +121,13 @@ export class GestionarMedicoComponent implements OnInit {
     this.medico.apellidos = this.medicoForm.get('apellidos').value;
     this.medico.identificacion = this.medicoForm.get('identificacion').value;
     this.medico.email = this.medicoForm.get('email').value;
-    this.medico.especialidad = this.medicoForm.get('especialidad').value;
     this.medico.numeroTarjetaProfesional = this.medicoForm.get('numeroTarjetaProfesional').value;
     let fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
     this.medico.fechaCreacion = fechaCitaFormateada;
+  }
+
+  public seleccionarParametro(item: Parametro): void {
+    this.medico.especialidad = item.nombre;
   }
 
   public onCrearClick(): void {

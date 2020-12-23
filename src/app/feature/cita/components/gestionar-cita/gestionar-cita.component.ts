@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cita } from '@cita/shared/model/cita';
+import { Precio } from '@cita/shared/model/precio';
 import { CitaService } from '@cita/shared/service/cita.service';
 import { Medico } from '@medico/shared/model/medico';
 import { MedicoService } from '@medico/shared/service/medico.service';
@@ -26,6 +27,7 @@ export class GestionarCitaComponent implements OnInit {
   public titulo: string;
   public cita: Cita;
   private crearClicked: boolean;
+  @Input() public precio: number;
   // Atributos del datepicker y timepicker
   public spinners: boolean;
   public meridian: boolean;
@@ -40,6 +42,7 @@ export class GestionarCitaComponent implements OnInit {
     this.spinners = false;
     this.meridian = true;
     this.crearClicked = false;
+    this.precio = 0;
   }
 
   ngOnInit(): void {
@@ -56,7 +59,8 @@ export class GestionarCitaComponent implements OnInit {
       if (id) {
         this.titulo = "Actualizar Cita";
         this.citaService.consultarPorId(id).subscribe(cita => {
-          this.cita = cita
+          this.cita = cita;
+          this.precio = this.cita.precio;
           this.setValue();
         });
       } else {
@@ -125,14 +129,17 @@ export class GestionarCitaComponent implements OnInit {
     var fechaCitaDate = new Date(fechaCita.year + "-" + fechaCita.month + "-" + fechaCita.day + " " + horaCita.hour + ":" + horaCita.minute + ":" + horaCita.second);
     let fechaCitaFormateada = this.datepipe.transform(fechaCitaDate, FORMAT_DATE);
     this.cita.fechaCita = fechaCitaFormateada;
+    this.cita.precio = this.precio;
   }
 
   public seleccionarMedico(item: Medico): void {
     this.cita.medico = item;
+    this.obtenerPrecio();
   }
 
   public seleccionarPaciente(item: Paciente): void {
     this.cita.paciente = item;
+    this.obtenerPrecio();
   }
 
   public onCrearClick(): void {
@@ -141,6 +148,19 @@ export class GestionarCitaComponent implements OnInit {
 
   public onEditarClick(): void {
     this.crearClicked = false;
+  }
+
+  private obtenerPrecio(): void {
+    if(this.cita.medico && this.cita.paciente) {
+      var precio: Precio = new Precio();
+      precio.estrato = this.cita.paciente.estrato;
+      precio.especialidad = this.cita.medico.especialidad;
+      this.citaService.obtenerPrecio(precio).subscribe(precio => {
+        this.precio = precio.valor
+      }, err =>{
+        Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      });
+    }
   }
 
 }

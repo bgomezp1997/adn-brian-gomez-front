@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpService } from '@core-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Cita } from '../model/cita';
+import { Precio } from '../model/precio';
 
 @Injectable()
 export class CitaService {
@@ -33,5 +34,9 @@ export class CitaService {
 
   public eliminar(cita: Cita) {
     return this.http.doDelete(`${environment.endpoint}/cita/${cita.id}`, this.http.optsName('elimina cita'));
+  }
+
+  public obtenerPrecio(precio: Precio) {
+    return this.http.doPost<Precio, any>(`${environment.endpoint}/cita/precio`, precio, this.http.optsName('obtener precio de cita'));
   }
 }

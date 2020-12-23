@@ -6,4 +6,5 @@ export class Cita {
     fechaCita: string;
     paciente: Paciente;
     medico: Medico;
+    precio: number;
 }
