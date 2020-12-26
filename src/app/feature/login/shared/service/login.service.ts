@@ -12,7 +12,6 @@ export class LoginService {
   autenticar(usuario: Usuario): any {
     var credenciales = btoa(`${usuario.username}:${usuario.password}`);
     var httpHeaders = new HttpHeaders({
-      'Content-Type':'application/x-www-form-urlecoded',
       'Authorization':'Basic ' + credenciales
     });
     return this.httpService.doGet<Usuario>(`${environment.endpoint}/usuario/login`, {headers: httpHeaders});

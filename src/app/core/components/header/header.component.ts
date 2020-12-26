@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   public logout() {
     Swal.fire('Login', 'Se ha cerrado sesión con éxito', 'success');
+    this.estaLogeado = false;
     this.tokenStorageService.signOut();
   }
 

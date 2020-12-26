@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '@core/services/token-storage.service';
 
+
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
@@ -12,11 +13,14 @@ export class TokenInterceptor implements HttpInterceptor {
     Observable<HttpEvent<any>> {
     const token = this.tokenStorageService.getToken();
     if (token) {
-      const authReq = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${token}`)
-      });
-      return next.handle(authReq);
+        const authReq = req.clone({
+          headers: req.headers.set('Authorization', `Bearer ${token}`)
+        });
+        return next.handle(authReq);
+      
     }
     return next.handle(req);
   }
+
+  
 }
