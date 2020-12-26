@@ -48,6 +48,14 @@ export class TokenStorageService {
         return sessionStorage.getItem(USERNAME_KEY);
     }
 
+    public estaLogeado(): boolean {
+        let token = this.getToken();
+        if(token != null && token){
+            return true;
+        }
+        return false;
+    }
+
     private tokenExpired(token: string) {
         const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
         return (Math.floor((new Date).getTime() / 1000)) >= expiry;

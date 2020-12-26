@@ -9,23 +9,18 @@ import Swal from 'sweetalert2';
 export class HeaderComponent implements OnInit {
 
   public titulo = "Citas - Clínica oftalmológica";
-  public estaLogeado: boolean;
 
-  constructor(private tokenStorageService: TokenStorageService) { 
-    this.estaLogeado = false;
-  }
+  constructor(private tokenStorageService: TokenStorageService) {}
 
-  ngOnInit(): void {
-    let token = this.tokenStorageService.getToken();
-    if(token != null && token) {
-      this.estaLogeado = true;
-    }
-  }
+  ngOnInit(): void {} 
 
   public logout() {
     Swal.fire('Login', 'Se ha cerrado sesión con éxito', 'success');
-    this.estaLogeado = false;
     this.tokenStorageService.signOut();
+  }
+
+  public estaLogeado(): boolean {
+    return this.tokenStorageService.estaLogeado();
   }
 
 }

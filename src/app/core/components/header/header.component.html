@@ -1,9 +1,11 @@
 <nav class="bg-dark navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="#">{{titulo}}</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+        </ul>
         <ul class="navbar-nav navbar-right">
             <li>
-                <a [routerLink]="['/login']" *ngIf="estaLogeado" (click)="logout()" class="btn btn-outline-primary">Logout</a>
+                <a [routerLink]="['/login']" *ngIf="estaLogeado()" (click)="logout()" class="btn btn-outline-primary">Logout</a>
             </li>
         </ul>
     </div>

@@ -22,8 +22,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    var token = this.tokenStorageService.getToken();
-    if(token != null && token) {
+    if(this.tokenStorageService.estaLogeado()) {
       let username = this.tokenStorageService.getUsername();
       Swal.fire('Login', `El usuario ${username}, ya se ha logeado`, 'info');
       this.redirect();

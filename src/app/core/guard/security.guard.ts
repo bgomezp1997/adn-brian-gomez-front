@@ -11,8 +11,7 @@ export class SecurityGuard implements CanActivate {
   constructor(private router: Router, private tokenStorageService: TokenStorageService) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const token = this.tokenStorageService.getToken();
-    if (token != null && token) {
+    if (this.tokenStorageService.estaLogeado()) {
       return true;
     }
     this.router.navigate(['/login']);
