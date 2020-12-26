@@ -10,10 +10,10 @@ export class LoginService {
   constructor(private httpService: HttpService) { }
 
   autenticar(usuario: Usuario): any {
-    var credenciales = btoa(`${usuario.username}:${usuario.password}`);
-    var httpHeaders = new HttpHeaders({
-      'Authorization':'Basic ' + credenciales
+    const credenciales = btoa(`${usuario.username}:${usuario.password}`);
+    const httpHeaders = new HttpHeaders({
+      Authorization: 'Basic ' + credenciales
     });
-    return this.httpService.doGet<Usuario>(`${environment.endpoint}/usuario/login`, {headers: httpHeaders});
+    return this.httpService.doGet<Usuario>(`${environment.endpoint}/usuario/login`, { headers: httpHeaders });
   }
 }

@@ -6,13 +6,13 @@ import { Medico } from '../model/medico';
 @Injectable()
 export class MedicoService {
 
-  private _notificarGestion = new EventEmitter<any>();
+  private notificarGestion = new EventEmitter<any>();
 
-  constructor(protected http: HttpService) { 
+  constructor(protected http: HttpService) {
   }
 
-  get notificarGestion() : EventEmitter<any> {
-    return this._notificarGestion;
+  get notificar(): EventEmitter<any> {
+    return this.notificarGestion;
   }
 
   public guardar(medico: Medico) {

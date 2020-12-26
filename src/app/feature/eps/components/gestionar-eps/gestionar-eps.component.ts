@@ -26,22 +26,23 @@ export class GestionarEpsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.eps = new Eps;
+    this.eps = new Eps();
     this.construirFormularioProducto();
     this.cargarEps();
   }
 
   private cargarEps(): void {
     this.activateRoute.params.subscribe(params => {
-      let id = params['id'];
+      const key = 'id';
+      const id = params[key];
       if (id) {
-        this.titulo = "Actualizar EPS";
+        this.titulo = 'Actualizar EPS';
         this.epsService.consultarPorId(id).subscribe(eps => {
           this.eps = eps;
           this.setValue();
         });
       } else {
-        this.titulo = "Crear EPS";
+        this.titulo = 'Crear EPS';
       }
     });
   }
@@ -59,7 +60,9 @@ export class GestionarEpsComponent implements OnInit {
     this.epsForm = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
       nit: new FormControl('', [Validators.required]),
-      telefono: new FormControl('', [Validators.required, Validators.minLength(LONGITUD_MINIMA_TELEFONO), Validators.maxLength(LONGITUD_MAXIMA_TELEFONO)]),
+      telefono: new FormControl('', [Validators.required,
+        Validators.minLength(LONGITUD_MINIMA_TELEFONO),
+        Validators.maxLength(LONGITUD_MAXIMA_TELEFONO)]),
       email: new FormControl('', [Validators.required, Validators.email])
     });
   }
@@ -77,11 +80,11 @@ export class GestionarEpsComponent implements OnInit {
     this.epsService.guardar(this.eps).subscribe(response => {
       if (response) {
         this.router.navigate(['/eps']);
-        this.epsService.notificarGestion.emit(response);
-        Swal.fire("Se ha creado la EPS", "La EPS se creó correctamente", 'success');
+        this.epsService.notificar.emit(response);
+        Swal.fire('Se ha creado la EPS', 'La EPS se creó correctamente', 'success');
       }
     }, err => {
-      Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
     });
 
   }
@@ -90,10 +93,10 @@ export class GestionarEpsComponent implements OnInit {
     this.fabricarEps();
     this.epsService.actualizar(this.eps).subscribe(response => {
       this.router.navigate(['/eps']);
-      this.epsService.notificarGestion.emit(response);
-      Swal.fire("Se ha actualizado la EPS", "La EPS se actualizó correctamente", 'success');
+      this.epsService.notificar.emit(response);
+      Swal.fire('Se ha actualizado la EPS', 'La EPS se actualizó correctamente', 'success');
     }, err => {
-      Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
     });
   }
 

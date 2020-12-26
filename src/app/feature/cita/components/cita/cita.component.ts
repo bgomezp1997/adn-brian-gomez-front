@@ -22,8 +22,8 @@ export class CitaComponent implements OnInit {
   ngOnInit(): void {
     this.citaService.consultar().subscribe(citas => this.citas = citas);
 
-    this.citaService.notificarGestion.subscribe(indicador => {
-      console.log("Subscribiendo los nuevos datos de las citas: " + indicador);
+    this.citaService.notificar.subscribe(indicador => {
+      console.log('Subscribiendo los nuevos datos de las citas: ' + indicador);
       this.citaService.consultar().subscribe(citas => this.citas = citas);
     });
   }
@@ -35,21 +35,23 @@ export class CitaComponent implements OnInit {
         cancelButton: 'btn btn-danger'
       },
       buttonsStyling: false
-      })
+    });
 
-      swalWithBootstrapButtons.fire({
-        title: 'Cuidado!',
-        text: `Está seguro de eliminar la cita agendada el ${cita.fechaCita} con el(la) paciente ${cita.paciente.nombres} ${cita.paciente.apellidos} y con el(la) médico ${cita.medico.nombres} ${cita.medico.apellidos} (${cita.medico.especialidad})?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si eliminar',
-        cancelButtonText: 'No, cancelar',
-        reverseButtons: true
-      }).then((result) => {
+    swalWithBootstrapButtons.fire({
+      title: 'Cuidado!',
+      text: `Está seguro de eliminar la cita agendada el ${cita.fechaCita} con el(la) paciente
+      ${cita.paciente.nombres} ${cita.paciente.apellidos} y con el(la) médico
+      ${cita.medico.nombres} ${cita.medico.apellidos} (${cita.medico.especialidad})?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si eliminar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
       if (result.value) {
         this.citaService.eliminar(cita).subscribe(
           response => {
-            if(!response) {
+            if (!response) {
               this.citas = this.citas.filter(ci => ci !== cita);
               swalWithBootstrapButtons.fire(
                 'Cita eliminada',
@@ -58,7 +60,7 @@ export class CitaComponent implements OnInit {
               );
             }
           }, err => {
-            Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+            Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
           });
       }
     });

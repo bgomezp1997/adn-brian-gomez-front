@@ -1,8 +1,8 @@
-import { Medico } from "@medico/shared/model/medico";
-import { Paciente } from "@paciente/shared/model/paciente";
+import { Medico } from '@medico/shared/model/medico';
+import { Paciente } from '@paciente/shared/model/paciente';
 
 export class Cita {
-    id : number;
+    id: number;
     fechaCita: string;
     paciente: Paciente;
     medico: Medico;

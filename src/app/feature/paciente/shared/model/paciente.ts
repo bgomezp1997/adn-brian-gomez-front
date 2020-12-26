@@ -1,4 +1,4 @@
-import { Eps } from "@eps/shared/model/eps";
+import { Eps } from '@eps/shared/model/eps';
 
 export class Paciente {
     id: number;

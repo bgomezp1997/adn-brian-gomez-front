@@ -8,7 +8,7 @@ import { Paciente } from '@paciente/shared/model/paciente';
 import { PacienteService } from '@paciente/shared/service/paciente.service';
 import Swal from 'sweetalert2';
 
-const FORMAT_DATE: string = "yyyy-MM-dd HH:mm:ss";
+const FORMAT_DATE = 'yyyy-MM-dd HH:mm:ss';
 const LONGITUD_MAXIMA_ESTRATO = 1;
 
 @Component({
@@ -28,7 +28,11 @@ export class GestionarPacienteComponent implements OnInit {
   public eps: Eps[];
   public atributoAutocomplete = 'nombre';
 
-  constructor(protected pacienteService: PacienteService, protected epsService: EpsService, private activateRoute: ActivatedRoute, private router: Router, private datePipe: DatePipe) { 
+  constructor(protected pacienteService: PacienteService,
+              protected epsService: EpsService,
+              private activateRoute: ActivatedRoute,
+              private router: Router,
+              private datePipe: DatePipe) {
     this.crearClicked = false;
   }
 
@@ -41,22 +45,23 @@ export class GestionarPacienteComponent implements OnInit {
 
   private cargarPaciente(): void {
     this.activateRoute.params.subscribe(params => {
-      let id = params['id'];
+      const key = 'id';
+      const id = params[key];
       if (id) {
-        this.titulo = "Actualizar Paciente";
+        this.titulo = 'Actualizar Paciente';
         this.pacienteService.consultarPorId(id).subscribe(paciente => {
-          this.paciente = paciente
+          this.paciente = paciente;
           this.setValue();
         });
       } else {
-        this.titulo = "Crear Paciente";
+        this.titulo = 'Crear Paciente';
       }
     });
   }
 
   private setValue(): void {
     this.fechaCreacionDate = new Date(this.paciente.fechaCreacion);
-    let fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
+    const fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
     this.pacienteForm.setValue({
       nombres: this.paciente.nombres,
       apellidos: this.paciente.apellidos,
@@ -72,7 +77,7 @@ export class GestionarPacienteComponent implements OnInit {
     if (!this.fechaCreacionDate) {
       this.fechaCreacionDate = new Date();
     }
-    let fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
+    const fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
     this.pacienteForm = new FormGroup({
       nombres: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
@@ -97,11 +102,11 @@ export class GestionarPacienteComponent implements OnInit {
     this.pacienteService.guardar(this.paciente).subscribe(response => {
       if (response) {
         this.router.navigate(['/paciente']);
-        this.pacienteService.notificarGestion.emit(response);
-        Swal.fire("Se ha creado el paciente", "El paciente se guardó correctamente", 'success');
+        this.pacienteService.notificar.emit(response);
+        Swal.fire('Se ha creado el paciente', 'El paciente se guardó correctamente', 'success');
       }
     }, err => {
-      Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
     });
 
   }
@@ -110,10 +115,10 @@ export class GestionarPacienteComponent implements OnInit {
     this.fabricarPaciente();
     this.pacienteService.actualizar(this.paciente).subscribe(response => {
       this.router.navigate(['/paciente']);
-      this.pacienteService.notificarGestion.emit(response);
-      Swal.fire("Se ha actualizado el paciente", "El paciente se actualizó correctamente", 'success');
+      this.pacienteService.notificar.emit(response);
+      Swal.fire('Se ha actualizado el paciente', 'El paciente se actualizó correctamente', 'success');
     }, err => {
-      Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
     });
   }
 
@@ -123,7 +128,7 @@ export class GestionarPacienteComponent implements OnInit {
     this.paciente.identificacion = this.pacienteForm.get('identificacion').value;
     this.paciente.email = this.pacienteForm.get('email').value;
     this.paciente.estrato = this.pacienteForm.get('estrato').value;
-    let fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
+    const fechaCitaFormateada = this.datePipe.transform(this.fechaCreacionDate, FORMAT_DATE);
     this.paciente.fechaCreacion = fechaCitaFormateada;
   }
 

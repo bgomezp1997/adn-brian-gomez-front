@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { throwError } from "rxjs";
+import { throwError } from 'rxjs';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
@@ -25,9 +25,9 @@ export class TokenStorageService {
     }
 
     public getToken(): string {
-        let token = sessionStorage.getItem(TOKEN_KEY);
-        if(token != null && token) {
-            if(!this.tokenExpired(token)){
+        const token = sessionStorage.getItem(TOKEN_KEY);
+        if (token != null && token) {
+            if (!this.tokenExpired(token)) {
                 return token;
             } else {
                 Swal.fire('Sesión expirada', 'Su sesión ha expirado!', 'info');
@@ -49,8 +49,8 @@ export class TokenStorageService {
     }
 
     public estaLogeado(): boolean {
-        let token = this.getToken();
-        if(token != null && token){
+        const token = this.getToken();
+        if (token != null && token) {
             return true;
         }
         return false;
@@ -58,6 +58,6 @@ export class TokenStorageService {
 
     private tokenExpired(token: string) {
         const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
-        return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+        return (Math.floor(new Date().getTime() / 1000)) >= expiry;
     }
 }

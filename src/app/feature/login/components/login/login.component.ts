@@ -13,17 +13,17 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  public titulo: string = 'Iniciar sesión';
+  public titulo = 'Iniciar sesión';
   public loginForm: FormGroup;
   private usuario: Usuario;
 
   constructor(protected loginService: LoginService, protected tokenStorageService: TokenStorageService, private router: Router) {
     this.usuario = new Usuario();
-   }
+  }
 
   ngOnInit(): void {
-    if(this.tokenStorageService.estaLogeado()) {
-      let username = this.tokenStorageService.getUsername();
+    if (this.tokenStorageService.estaLogeado()) {
+      const username = this.tokenStorageService.getUsername();
       Swal.fire('Login', `El usuario ${username}, ya se ha logeado`, 'info');
       this.redirect();
     }
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.fabricarUsuario();
     this.loginService.autenticar(this.usuario).subscribe(
       data => {
-        let payload = JSON.parse(atob(data.accessToken.split(".")[1]));
+        const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
         this.tokenStorageService.saveToken(data.accessToken);
         this.tokenStorageService.saveUsername(payload.sub);
         Swal.fire('Login', `El usuario ${payload.sub} se ha logeado con éxito`, 'success');

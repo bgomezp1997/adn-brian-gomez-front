@@ -6,13 +6,13 @@ import { Paciente } from '../model/paciente';
 @Injectable()
 export class PacienteService {
 
-  private _notificarGestion = new EventEmitter<any>();
+  private notificarGestion = new EventEmitter<any>();
 
-  constructor(protected http: HttpService) { 
+  constructor(protected http: HttpService) {
   }
 
-  get notificarGestion() : EventEmitter<any> {
-    return this._notificarGestion;
+  get notificar(): EventEmitter<any> {
+    return this.notificarGestion;
   }
 
   public guardar(paciente: Paciente) {
@@ -20,7 +20,8 @@ export class PacienteService {
   }
 
   public actualizar(paciente: Paciente) {
-    return this.http.doPut<Paciente>(`${environment.endpoint}/paciente/${paciente.id}`, paciente, this.http.optsName('actualizar paciente'));
+    return this.http.doPut<Paciente>(`${environment.endpoint}/paciente/${paciente.id}`, paciente,
+      this.http.optsName('actualizar paciente'));
   }
 
   public consultar() {

@@ -14,7 +14,7 @@ export class MedicoComponent implements OnInit {
   public page: number;
   public pageSize: number;
 
-  constructor(protected medicoService: MedicoService) { 
+  constructor(protected medicoService: MedicoService) {
     this.page = 1;
     this.pageSize = 5;
   }
@@ -22,8 +22,8 @@ export class MedicoComponent implements OnInit {
   ngOnInit(): void {
     this.medicoService.consultar().subscribe(medicos => this.medicos = medicos);
 
-    this.medicoService.notificarGestion.subscribe(indicador => {
-      console.log("Subscribiendo los nuevos datos de los médicos: " + indicador);
+    this.medicoService.notificar.subscribe(indicador => {
+      console.log('Subscribiendo los nuevos datos de los médicos: ' + indicador);
       this.medicoService.consultar().subscribe(medicos => this.medicos = medicos);
     });
   }
@@ -35,21 +35,21 @@ export class MedicoComponent implements OnInit {
         cancelButton: 'btn btn-danger'
       },
       buttonsStyling: false
-      })
+    });
 
-      swalWithBootstrapButtons.fire({
-        title: 'Cuidado!',
-        text: `Está seguro de eliminar el médico ${medico.nombres} ${medico.apellidos} con la especialidad de ${medico.especialidad}?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si eliminar',
-        cancelButtonText: 'No, cancelar',
-        reverseButtons: true
-      }).then((result) => {
+    swalWithBootstrapButtons.fire({
+      title: 'Cuidado!',
+      text: `Está seguro de eliminar el médico ${medico.nombres} ${medico.apellidos} con la especialidad de ${medico.especialidad}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si eliminar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
       if (result.value) {
         this.medicoService.eliminar(medico).subscribe(
           response => {
-            if(!response) {
+            if (!response) {
               this.medicos = this.medicos.filter(med => med !== medico);
               swalWithBootstrapButtons.fire(
                 'Medico eliminado',
@@ -58,7 +58,7 @@ export class MedicoComponent implements OnInit {
               );
             }
           }, err => {
-            Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+            Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
           });
       }
     });

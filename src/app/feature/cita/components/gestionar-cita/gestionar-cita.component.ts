@@ -13,7 +13,7 @@ import { PacienteService } from '@paciente/shared/service/paciente.service';
 
 import Swal from 'sweetalert2';
 
-const FORMAT_DATE: string = "yyyy-MM-dd HH:mm:ss";
+const FORMAT_DATE = 'yyyy-MM-dd HH:mm:ss';
 
 @Component({
   selector: 'app-gestionar-cita',
@@ -38,7 +38,12 @@ export class GestionarCitaComponent implements OnInit {
   public pacientes: Paciente[];
   public atributoAutocomplete = 'identificacion';
 
-  constructor(protected citaService: CitaService, protected medicoService: MedicoService, protected pacienteService: PacienteService, private router: Router, private datepipe: DatePipe, private activateRoute: ActivatedRoute) {
+  constructor(protected citaService: CitaService,
+              protected medicoService: MedicoService,
+              protected pacienteService: PacienteService,
+              private router: Router,
+              private datepipe: DatePipe,
+              private activateRoute: ActivatedRoute) {
     this.spinners = false;
     this.meridian = true;
     this.crearClicked = false;
@@ -55,22 +60,23 @@ export class GestionarCitaComponent implements OnInit {
 
   private cargarCita(): void {
     this.activateRoute.params.subscribe(params => {
-      let id = params['id'];
+      const key = 'id';
+      const id = params[key];
       if (id) {
-        this.titulo = "Actualizar Cita";
+        this.titulo = 'Actualizar Cita';
         this.citaService.consultarPorId(id).subscribe(cita => {
           this.cita = cita;
           this.precio = this.cita.precio;
           this.setValue();
         });
       } else {
-        this.titulo = "Crear Cita";
+        this.titulo = 'Crear Cita';
       }
     });
   }
 
   private setValue(): void {
-    var fechaCitaDate = new Date(this.cita.fechaCita);
+    const fechaCitaDate = new Date(this.cita.fechaCita);
     this.date = { year: fechaCitaDate.getFullYear(), month: (fechaCitaDate.getMonth() + 1), day: fechaCitaDate.getDate() };
     this.time = { hour: + fechaCitaDate.getHours(), minute: + fechaCitaDate.getMinutes(), second: fechaCitaDate.getSeconds() };
     this.citaForm.setValue({
@@ -103,11 +109,11 @@ export class GestionarCitaComponent implements OnInit {
     this.citaService.guardar(this.cita).subscribe(response => {
       if (response) {
         this.router.navigate(['/cita']);
-        this.citaService.notificarGestion.emit(response);
-        Swal.fire("Se ha creado la cita", "La cita se agendó correctamente", 'success');
+        this.citaService.notificar.emit(response);
+        Swal.fire('Se ha creado la cita', 'La cita se agendó correctamente', 'success');
       }
     }, err => {
-      Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
     });
 
   }
@@ -116,18 +122,19 @@ export class GestionarCitaComponent implements OnInit {
     this.fabricarCita();
     this.citaService.actualizar(this.cita).subscribe(response => {
       this.router.navigate(['/cita']);
-      this.citaService.notificarGestion.emit(response);
-      Swal.fire("Se ha actualizado la cita", "La cita se actualizó correctamente", 'success');
+      this.citaService.notificar.emit(response);
+      Swal.fire('Se ha actualizado la cita', 'La cita se actualizó correctamente', 'success');
     }, err => {
-      Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
     });
   }
 
   private fabricarCita(): void {
-    let fechaCita = this.citaForm.get('fechaCita').value;
-    let horaCita = this.citaForm.get('horaCita').value;
-    var fechaCitaDate = new Date(fechaCita.year + "-" + fechaCita.month + "-" + fechaCita.day + " " + horaCita.hour + ":" + horaCita.minute + ":" + horaCita.second);
-    let fechaCitaFormateada = this.datepipe.transform(fechaCitaDate, FORMAT_DATE);
+    const fechaCita = this.citaForm.get('fechaCita').value;
+    const horaCita = this.citaForm.get('horaCita').value;
+    const fechaCitaDate = new Date(fechaCita.year + '-' + fechaCita.month + '-' + fechaCita.day
+      + ' ' + horaCita.hour + ':' + horaCita.minute + ':' + horaCita.second);
+    const fechaCitaFormateada = this.datepipe.transform(fechaCitaDate, FORMAT_DATE);
     this.cita.fechaCita = fechaCitaFormateada;
     this.cita.precio = this.precio;
   }
@@ -151,14 +158,14 @@ export class GestionarCitaComponent implements OnInit {
   }
 
   private obtenerPrecio(): void {
-    if(this.cita.medico && this.cita.paciente) {
-      var precio: Precio = new Precio();
+    if (this.cita.medico && this.cita.paciente) {
+      const precio: Precio = new Precio();
       precio.estrato = this.cita.paciente.estrato;
       precio.especialidad = this.cita.medico.especialidad;
-      this.citaService.obtenerPrecio(precio).subscribe(precio => {
-        this.precio = precio.valor
-      }, err =>{
-        Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+      this.citaService.obtenerPrecio(precio).subscribe(prec => {
+        this.precio = prec.valor;
+      }, err => {
+        Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
       });
     }
   }

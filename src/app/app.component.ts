@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  public title : string = 'app-base';
+  public title = 'app-clinica-oftalmologica';
 
 }

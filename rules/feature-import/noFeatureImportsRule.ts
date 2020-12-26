@@ -1,8 +1,6 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
 import * as fs from 'fs';
-import { isImportDeclaration } from 'tsutils';
-import { element } from 'protractor';
 
 
 export class Rule extends Lint.Rules.AbstractRule {

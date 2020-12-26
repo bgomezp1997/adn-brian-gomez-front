@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
 })
 export class HeaderComponent implements OnInit {
 
-  public titulo = "Citas - Clínica oftalmológica";
+  public titulo = 'Citas - Clínica oftalmológica';
 
-  constructor(private tokenStorageService: TokenStorageService) {}
+  constructor(private tokenStorageService: TokenStorageService) { }
 
-  ngOnInit(): void {} 
+  ngOnInit(): void { }
 
   public logout() {
     Swal.fire('Login', 'Se ha cerrado sesión con éxito', 'success');

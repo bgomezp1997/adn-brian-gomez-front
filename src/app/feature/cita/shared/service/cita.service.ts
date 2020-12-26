@@ -7,13 +7,13 @@ import { Precio } from '../model/precio';
 @Injectable()
 export class CitaService {
 
-  private _notificarGestion = new EventEmitter<any>();
+  private notificarGestion = new EventEmitter<any>();
 
-  constructor(protected http: HttpService) { 
+  constructor(protected http: HttpService) {
   }
 
-  get notificarGestion() : EventEmitter<any> {
-    return this._notificarGestion;
+  public get notificar(): EventEmitter<any> {
+    return this.notificarGestion;
   }
 
   public guardar(cita: Cita) {

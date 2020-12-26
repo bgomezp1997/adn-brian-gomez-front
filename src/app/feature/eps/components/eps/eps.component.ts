@@ -23,8 +23,8 @@ export class EpsComponent implements OnInit {
   ngOnInit(): void {
     this.epsService.consultar().subscribe(eps => this.eps = eps);
 
-    this.epsService.notificarGestion.subscribe(indicador => {
-      console.log("Subscribiendo los nuevos datos de las eps: " + indicador);
+    this.epsService.notificar.subscribe(indicador => {
+      console.log('Subscribiendo los nuevos datos de las eps: ' + indicador);
       this.epsService.consultar().subscribe(eps => this.eps = eps);
     });
   }
@@ -36,7 +36,7 @@ export class EpsComponent implements OnInit {
         cancelButton: 'btn btn-danger'
       },
       buttonsStyling: false
-    })
+    });
 
     swalWithBootstrapButtons.fire({
       title: 'Cuidado!',
@@ -59,7 +59,7 @@ export class EpsComponent implements OnInit {
               );
             }
           }, err => {
-            Swal.fire(err.error.mensaje, "Nombre de la excepción: " + err.error.nombreExcepcion, 'error');
+            Swal.fire(err.error.mensaje, 'Nombre de la excepción: ' + err.error.nombreExcepcion, 'error');
           });
       }
     });
