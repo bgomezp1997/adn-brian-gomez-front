@@ -9,6 +9,7 @@ import { ManejadorError } from './interceptor/manejador-error';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { ParametroService } from './services/parametro.service';
+import { TokenStorageService } from './services/token-storage.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -20,6 +21,7 @@ import { ParametroService } from './services/parametro.service';
   providers: [
     HttpService,
     ParametroService,
+    TokenStorageService,
     SecurityGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

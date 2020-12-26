@@ -32,6 +32,9 @@
       "@administracion/*": [
         "src/app/feature/administracion/*"
       ],
+      "@login/*": [
+        "src/app/feature/login/*"
+      ],
       "@shared/*": [
         "src/app/shared/*"
       ]

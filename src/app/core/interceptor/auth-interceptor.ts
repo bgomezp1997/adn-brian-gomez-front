@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(['/login']);
             break;
           case FORBIDDEN:
-            this.router.navigate(['/home']);
+            this.router.navigate(['/login']);
             break;
           default:
             return throwError(error);
