@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ParametroService } from '@core/services/parametro.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  public valorTrm;
 
-  constructor() { }
+
+  constructor(protected parametroService: ParametroService) { }
 
   ngOnInit() {
+    this.parametroService.consultarTrm().subscribe(res => {
+      this.valorTrm = res.value;
+    }, error => {
+      Swal.fire('Error TRM', `No se pudo cargar la última TRM: ${error.error}`, 'error');
+    });
   }
 
 }

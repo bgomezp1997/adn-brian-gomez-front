@@ -12,4 +12,8 @@ export class ParametroService {
     return this.httpService.doGet<Parametro[]>(`${environment.endpoint}/parametro?estado=${estado}&tipo=${tipo}`,
       this.httpService.optsName('consultar parametros por estado y tipo'));
   }
+
+  public consultarTrm() {
+    return this.httpService.doGet<any>(`${environment.endpoint}/trm`, this.httpService.optsName('consultar la ultima trm'));
+  }
 }
