@@ -1,14 +1,12 @@
-FROM node:13.3.0 AS compile-image
-
-WORKDIR /opt/ng
-COPY package.json ./
+# Stage 0: compile angular frontend
+FROM node:latest as build
+WORKDIR /src/app
+COPY . . 
 RUN npm install
+RUN npm run build --prod
 
-ENV PATH="./node_modules/.bin:$PATH" 
-
-COPY . ./
-RUN ng build --prod
-
-FROM nginx
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=compile-image /opt/ng/dist/app-name /usr/share/nginx/html
+# Stage 1: serve app with nginx server
+FROM nginx:latest
+COPY --from=build /src/app/dist/app-base  /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

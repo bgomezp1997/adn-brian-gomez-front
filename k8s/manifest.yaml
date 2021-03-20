@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adn-brian-gomez-front
+  namespace: prueba-concepto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adn-brian-gomez-front
+  template:
+    metadata:
+      labels:
+        app: adn-brian-gomez-front
+    spec:
+      containers:
+        - name: adn-brian-gomez-front
+          image: pruebaconcepto.azurecr.io/adn-brian-gomez-front
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adn-brian-gomez-front
+  namespace: prueba-concepto
+spec:
+  type: LoadBalancer
+  selector:
+    app: adn-brian-gomez-front
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+      
